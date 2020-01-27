@@ -13,31 +13,46 @@
         const p = 'P';
         const c = 'C';
         const x = 'X';
-        let computerSelection = computerPlay();
+        const PICK = ["paper", "rock", "scissors"];
+        // let computerSelection = computerPlay();
         let winner = '';
-        // This function capitalizes the first letter in a given string after lowercasing the entire string
-        function capitalize(word) {
-            let lowercasedWord = word.toLowerCase();
-            let firstLetter = String(lowercasedWord.charAt(0).toUpperCase());
-            let cutString = lowercasedWord.slice(1);
-            let capitalString = firstLetter + cutString;
-            return capitalString;
-        } // end capitalize
+
+        // This function lowercases a word
+        function lowerize(word) {
+            return word.toLowerCase();
+        } // end lowerize
 
         // This function is used to represent a computer player who
-        // plays the game like a human and picks 1 of 3 choices
+        // plays the game like a human and PICKs 1 of 3 choices
         function computerPlay() {
-            // creates an array of choices
-            let pick = ["Paper", "Rock", "Scissors"];
 
-            // returns a random choice from the pick array
-            return pick[Math.floor(Math.random() * pick.length)];
+            // returns a random choice from the PICK array
+            return lowerize(PICK[Math.floor(Math.random() * PICK.length)]);
         } // end computerPlay
 
-        // This function plays a single round of Rock, Paper, Scissors. It takes two parameters: playerSelection(The typed choice of the human player), and computerSelection(An automated function for the program to choose a random pick)
+        function get_player_name() {
+            let name = prompt("What is your name?");
+            return name;
+        }
+
+        function playerPlay() {
+            let selection = prompt("Type your choice [Rock, Paper, or Scissors]");
+            return lowerize(selection);
+        }
+
+        function get_winner() {
+            return winner;
+        }
+        // // This function plays a single round of Rock, Paper, Scissors. It takes two parameters: player_selection(The
+        // typed choice of the human player), and computerSelection(An automated
+        //     function
+        //     for the program to choose a random PICK)
+
         function playARound(playerSelection, computerSelection) {
-            capitalize(playerSelection);
-            let player = playerSelection;
+
+            //lowerize(playerSelection);
+            //lowerize(computerSelection);
+            // let player = playerSelection;
 
             let response = {
                 draw: "It's a draw!",
@@ -49,88 +64,103 @@
                 scissorsLose: "You lose, Rock beats Scissors."
             }
             switch (computerSelection) {
-                case "Paper":
+                case "paper":
 
-                    if (player === "Paper") {
-                        return response.draw;
+                    if (playerSelection === "paper") {
                         winner = x;
-                    } else if (player === "Rock") {
+                        return response.draw;
+
+                    } else if (playerSelection === "rock") {
                         winner = c;
                         return response.rockLose;
-                    } else {
+
+                    } else if (playerSelection === "scissors") {
                         winner = p;
                         return response.scissorsWin;
+                    } else {
+                        return console.log("Error");
                     }
                     break;
 
-                case "Rock":
+                case "rock":
 
-                    if (player === "Rock") {
-                        return response.draw;
+                    if (playerSelection === "rock") {
                         winner = x;
-                    } else if (player === "Paper") {
+                        return response.draw;
+
+                    } else if (playerSelection === "paper") {
                         winner = p;
                         return response.paperWin;
-                    } else {
+                    } else if (playerSelection === "scissors") {
                         winner = c;
                         return response.scissorsLose;
+                    } else {
+                        return console.log("Error");
                     }
                     break;
 
-                case "Scissors":
+                case "scissors":
 
-                    if (player === "Scissors") {
-                        return response.draw;
+                    if (playerSelection === "scissors") {
                         winner = x;
-                    } else if (player === "Paper") {
+                        return response.draw;
+
+                    } else if (playerSelection === "paper") {
                         winner = c;
                         return response.paperLose;
-                    } else {
+                    } else if (playerSelection === "rock") {
                         winner = p;
                         return response.rockWin;
+                    } else {
+                        return console.log("Error");
                     }
                     break;
 
                 default:
-                    return console.log("Error. something went wrong...");
+                    return console.log("Error. something went wrong playa...");
             }
         } // end playARound
 
         // This function plays 5 rounds of Rock, Paper, Scissors, keeps score, and reports the winner at the end.
         function game() {
+            let playerName = get_player_name();
 
-            let playerName = prompt("What is your name?");
-            let playerSelecton = "";
+            // playARound(player_selection, computer_selection);
+            // let playerName = prompt("What is your name?");
+            //let playerSelecton = "";
             let champion = "";
             let pCount = 0;
             let cCount = 0;
             let xCount = 0;
 
             for (let gameCount = 0; gameCount < 5; gameCount++) {
-                playerSelection = prompt("Type your choice [Rock, Paper, or Scissors]");
-                playARound(playerSelection, computerSelection);
+                let player_selection = playerPlay();
+                let
+                    computer_selection = computerPlay();
+                playARound(player_selection, computer_selection);
                 if (winner === p) {
                     pCount += 1;
-                    console.log(playerSelection);
-                    console.log(computerSelection);
+                    console.log(player_selection);
+                    console.log(computer_selection);
                     console.log("The winner of that round is: " + playerName + "!")
                 } else if (winner === c) {
                     cCount += 1;
-                    console.log(playerSelection);
-                    console.log(computerSelection);
+                    console.log(player_selection);
+                    console.log(computer_selection);
                     console.log("The winner of that round was the computer.");
                 } else {
-                    xCount += 1;
-                    console.log(playerSelection);
-                    console.log(computerSelection);
-                    console.log("There was no winner this round. It was a draw.");
+                    xCount
+                        += 1;
+                    console.log(player_selection);
+                    console.log(computer_selection);
+                    console.log("There was no winner this round.It was a draw.");
                 }
-
             }
-            if (pCount > cCount && pCount > xCount) {
+            if (pCount > cCount) {
                 champion = playerName;
-                console.log("After the action, the winner of the game is " + champion + "!");
-            } else if (cCount > pCount && cCount > xCount) {
+                console.log("After the action, the winner of the game is " +
+                    champion + "!");
+            } else if (cCount > pCount) {
                 champion = "MacBook Pro 15\"";
                 console.log("After the action, the winner of the game is " + champion + "!");
             } else {
