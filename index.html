@@ -10,12 +10,15 @@
 
 <body>
     <script>
-        const p = 'P';
-        const c = 'C';
-        const x = 'X';
-        const PICK = ["paper", "rock", "scissors"];
-        // let computerSelection = computerPlay();
-        let winner = '';
+        ////////////////////////////////////GLOBAL VARIABLES//////////////////////////////////////
+
+        const p = 'P'; // represents the player as a winner
+        const c = 'C'; // represents the computer as a winner
+        const x = 'X'; // represents a draw in competition
+        const PICK = ["paper", "rock", "scissors"]; // represents the possible choices in the game
+        let winner = ''; // represents the winner of the game
+
+        ////////////////////////////////////HELPER FUNCTIONS//////////////////////////////////////
 
         // This function lowercases a word
         function lowerize(word) {
@@ -25,35 +28,33 @@
         // This function is used to represent a computer player who
         // plays the game like a human and PICKs 1 of 3 choices
         function computerPlay() {
-
-            // returns a random choice from the PICK array
             return lowerize(PICK[Math.floor(Math.random() * PICK.length)]);
         } // end computerPlay
 
+        // This function gets the player's name from a prompt in the 
+        // beginning of the game
         function get_player_name() {
             let name = prompt("What is your name?");
             return name;
-        }
+        } // end get_player_name
 
+        // This function is used to prompt the player for 1 of 3 choices then 
+        // lowercases the choice and checks to make sure it matches one of the choices
+        // TODO: error checking
         function playerPlay() {
             let selection = prompt("Type your choice [Rock, Paper, or Scissors]");
             return lowerize(selection);
-        }
+        } // end playerPlay
 
-        function get_winner() {
-            return winner;
-        }
-        // // This function plays a single round of Rock, Paper, Scissors. It takes two parameters: player_selection(The
-        // typed choice of the human player), and computerSelection(An automated
-        //     function
-        //     for the program to choose a random PICK)
+        ///////////////////////////////////MAIN FUNCTIONS/////////////////////////////////////////
 
+        // This function plays a single round of Rock, Paper, Scissors. 
+        // It takes two parameters: 
+        // player_selection(The typed choice of the human player), and 
+        // computerSelection(An automated function for the program to choose a random PICK)
         function playARound(playerSelection, computerSelection) {
 
-            //lowerize(playerSelection);
-            //lowerize(computerSelection);
-            // let player = playerSelection;
-
+            // A key-value pair object that holds the responses to each possible game outcome
             let response = {
                 draw: "It's a draw!",
                 rockWin: "You win! Rock beats Scissors!",
@@ -63,6 +64,8 @@
                 scissorsWin: "You win! Scissors beats Paper!",
                 scissorsLose: "You lose, Rock beats Scissors."
             }
+
+            // Check the computer's choice and compare it to the choice of the player.'
             switch (computerSelection) {
                 case "paper":
 
