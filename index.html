@@ -14,7 +14,6 @@
 
         const p = 'P'; // represents the player as a winner
         const c = 'C'; // represents the computer as a winner
-        const x = 'X'; // represents a draw in competition
         const PICK = ["paper", "rock", "scissors"]; // represents the possible choices in the game
         let winner = ''; // represents the winner of the game
 
@@ -72,7 +71,6 @@
 
                     // The player picks paper, and no one wins
                     if (playerSelection === "paper") {
-                        winner = x;
                         return response.draw;
 
                         // The player picks rock, and the computer wins
@@ -96,7 +94,6 @@
 
                     // The player picks rock, and no one wins
                     if (playerSelection === "rock") {
-                        winner = x;
                         return response.draw;
 
                         // The player picks paper, and the player wins
@@ -120,7 +117,6 @@
 
                     // The player picks scissors, so no one wins
                     if (playerSelection === "scissors") {
-                        winner = x;
                         return response.draw;
 
                         // The player picks paper, and the computer wins
@@ -153,7 +149,6 @@
             let champion = ""; // represents the final game winner
             let pCount = 0; // represents the player's win count
             let cCount = 0; // represents the computer's win count
-            let xCount = 0; // represents the draw game count
 
             // Play 5 rounds of the game, then tally the wins and announce the champion
             for (let gameCount = 0; gameCount < 5; gameCount++) {
@@ -161,36 +156,50 @@
                 let player_selection = playerPlay(); // calls a function to get and store the player's choice
 
                 let computer_selection = computerPlay(); // calls a functon to get and store the computer's choice
+
+                // Initiates a round of play with the current choices from the player and computer
                 playARound(player_selection, computer_selection);
+
+                // if the player's choice wins, increment the player's win counter, show each participant's choices, and declare the player the round winner
                 if (winner === p) {
                     pCount += 1;
                     console.log(player_selection);
                     console.log(computer_selection);
                     console.log("The winner of that round is: " + playerName + "!")
+
+                    // if the computer's choice wins, increment the computer's win counter, show each participant's choices, and declare the computer the round winner
                 } else if (winner === c) {
                     cCount += 1;
                     console.log(player_selection);
                     console.log(computer_selection);
                     console.log("The winner of that round was the computer.");
+
+                    // if both the player and computer pick the same choice, log no counter, show each participant's choice, and declare the game a draw
                 } else {
-                    xCount
-                        += 1;
                     console.log(player_selection);
                     console.log(computer_selection);
                     console.log("There was no winner this round.It was a draw.");
                 }
             }
+
+            // After the 5 rounds are played, tally the win counts, and declare a champion
+
+            // if the player's win counter is larger than the computer's counter, declare the player the champion and display a message
             if (pCount > cCount) {
                 champion = playerName;
-                console.log("After the action, the winner of the game is " +
+                console.log("\n\nAfter the action, the winner of the game is " +
                     champion + "!");
+
+                // if the computer's win counter is larger than the player's counter, declare the computer the champion and display a message
             } else if (cCount > pCount) {
                 champion = "MacBook Pro 15\"";
                 console.log("After the action, the winner of the game is " + champion + "!");
+
+                // if the game ends with a draw, declare no winner and display a draw game message
             } else {
                 console.log("After the action, there was no winner. The game ended in a DRAW!!!");
             }
-        }
+        } // end game
     </script>
 </body>
 
