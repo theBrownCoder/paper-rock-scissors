@@ -72,7 +72,6 @@
 
                     // The player picks paper, and no one wins
                     if (playerSelection === "paper") {
-                        winner = x;
                         return response.draw;
 
                         // The player picks rock, and the computer wins
@@ -96,7 +95,6 @@
 
                     // The player picks rock, and no one wins
                     if (playerSelection === "rock") {
-                        winner = x;
                         return response.draw;
 
                         // The player picks paper, and the player wins
@@ -120,7 +118,6 @@
 
                     // The player picks scissors, so no one wins
                     if (playerSelection === "scissors") {
-                        winner = x;
                         return response.draw;
 
                         // The player picks paper, and the computer wins
@@ -153,7 +150,6 @@
             let champion = ""; // represents the final game winner
             let pCount = 0; // represents the player's win count
             let cCount = 0; // represents the computer's win count
-            let xCount = 0; // represents the draw game count
 
             // Play 5 rounds of the game, then tally the wins and announce the champion
             for (let gameCount = 0; gameCount < 5; gameCount++) {
@@ -170,14 +166,14 @@
                     console.log(computer_selection);
                     console.log("The winner of that round is: " + playerName + "!");
 
-                    // if the computer's choice wins, increment the computer's win counter, show each participant 's choices, and declare the computer the round winner 
+                    // if the computer's choice wins, increment the computer's win counter, show each participant's choices, and declare the computer the round winner 
                 } else if (winner === c) {
                     cCount += 1;
                     console.log(player_selection);
                     console.log(computer_selection);
                     console.log("The winner of that round was the computer.");
 
-                    // if both the player and computer pick the same choice, log no counter, show each participant 's choice, and declare the game a draw 
+                    // if both the player and computer pick the same choice, log no counter, show each participant's choice, and declare the game a draw 
                 } else if (winner === x) {
                     console.log(player_selection);
                     console.log(computer_selection);
