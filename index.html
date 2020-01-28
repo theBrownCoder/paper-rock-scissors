@@ -14,7 +14,7 @@
 
         const p = 'P'; // represents the player as a winner
         const c = 'C'; // represents the computer as a winner
-        const x = 'X'; // represents a draw in competition
+        const x = 'X'; // represents no one winning
         const PICK = ["paper", "rock", "scissors"]; // represents the possible choices in the game
         let winner = ''; // represents the winner of the game
 
@@ -31,14 +31,14 @@
             return lowerize(PICK[Math.floor(Math.random() * PICK.length)]);
         } // end computerPlay
 
-        // This function gets the player's name from a prompt in the 
+        // This function gets the player's name from a prompt in the
         // beginning of the game
         function get_player_name() {
             let name = prompt("What is your name?");
             return name;
         } // end get_player_name
 
-        // This function is used to prompt the player for 1 of 3 choices then 
+        // This function is used to prompt the player for 1 of 3 choices then
         // lowercases the choice and checks to make sure it matches one of the choices
         // TODO: error checking
         function playerPlay() {
@@ -48,9 +48,9 @@
 
         ///////////////////////////////////MAIN FUNCTIONS/////////////////////////////////////////
 
-        // This function plays a single round of Rock, Paper, Scissors. 
-        // It takes two parameters: 
-        // player_selection(The typed choice of the human player), and 
+        // This function plays a single round of Rock, Paper, Scissors.
+        // It takes two parameters:
+        // player_selection(The typed choice of the human player), and
         // computerSelection(An automated function for the program to choose a random PICK)
         function playARound(playerSelection, computerSelection) {
 
@@ -157,40 +157,58 @@
 
             // Play 5 rounds of the game, then tally the wins and announce the champion
             for (let gameCount = 0; gameCount < 5; gameCount++) {
+                let player_selection = playerPlay(); // calls a function to get and store the player's choice 
+                let computer_selection = computerPlay(); // calls a functon to get and store the computer 's choice 
 
-                let player_selection = playerPlay(); // calls a function to get and store the player's choice
-
-                let computer_selection = computerPlay(); // calls a functon to get and store the computer's choice
+                // Initiates a round of play with the current choices from the player and computer 
                 playARound(player_selection, computer_selection);
+
+                // if the player's choice wins, increment the player 's win counter, show each participant's choices, and declare the player the round winner
                 if (winner === p) {
                     pCount += 1;
                     console.log(player_selection);
                     console.log(computer_selection);
-                    console.log("The winner of that round is: " + playerName + "!")
+                    console.log("The winner of that round is: " + playerName + "!");
+
+                    // if the computer's choice wins, increment the computer's win counter, show each participant 's choices, and declare the computer the round winner 
                 } else if (winner === c) {
                     cCount += 1;
                     console.log(player_selection);
                     console.log(computer_selection);
                     console.log("The winner of that round was the computer.");
-                } else {
-                    xCount
-                        += 1;
+
+                    // if both the player and computer pick the same choice, log no counter, show each participant 's choice, and declare the game a draw 
+                } else if (winner === x) {
                     console.log(player_selection);
                     console.log(computer_selection);
-                    console.log("There was no winner this round.It was a draw.");
+                    console.log(
+                        "There was no winner this round.It was a draw.");
+
+                    // if all else fails, log an error
+                } else {
+                    console.log("Error.");
                 }
             }
+
+            // After the 5 rounds are played, tally the win counts, and declare a champion 
+            // if the player's win counter is larger than the computer's counter, declare the player the champion and display a message
             if (pCount > cCount) {
                 champion = playerName;
-                console.log("After the action, the winner of the game is " +
+                console.log("\n\nAfter the action, the winner of the game is " +
                     champion + "!");
+
+                // if the computer's win counter is larger than the player's counter, declare the computer the champion and display a message
             } else if (cCount > pCount) {
-                champion = "MacBook Pro 15\"";
+                champion = "Computer";
                 console.log("After the action, the winner of the game is " + champion + "!");
+
+                // if the game ends with a draw, declare no winner and display a draw game message
             } else {
-                console.log("After the action, there was no winner. The game ended in a DRAW!!!");
+                console.log(
+                    "After the action, there was no winner. The game ended in a DRAW!!!"
+                );
             }
-        }
+        } // end game
     </script>
 </body>
 
