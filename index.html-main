@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Dameon's Paper, Rock, Scissors</title>
+</head>
+
+<body>
+    <script>
+        ////////////////////////////////////GLOBAL VARIABLES//////////////////////////////////////
+
+        const p = 'P'; // represents the player as a winner
+        const c = 'C'; // represents the computer as a winner
+        const x = 'X'; // represents no one winning
+        const PICK = ["paper", "rock", "scissors"]; // represents the possible choices in the game
+        let winner = ''; // represents the winner of the game
+
+        ////////////////////////////////////HELPER FUNCTIONS//////////////////////////////////////
+
+        // This function lowercases a word
+        function lowerize(word) {
+            return word.toLowerCase();
+        } // end lowerize
+
+        // This function is used to represent a computer player who
+        // plays the game like a human and PICKs 1 of 3 choices
+        function computerPlay() {
+            return lowerize(PICK[Math.floor(Math.random() * PICK.length)]);
+        } // end computerPlay
+
+        // This function gets the player's name from a prompt in the
+        // beginning of the game
+        function get_player_name() {
+            let name = prompt("What is your name?");
+            return name;
+        } // end get_player_name
+
+        // This function is used to prompt the player for 1 of 3 choices then
+        // lowercases the choice and checks to make sure it matches one of the choices
+        // TODO: error checking
+        function playerPlay() {
+            let selection = prompt("Type your choice [Rock, Paper, or Scissors]");
+            return lowerize(selection);
+        } // end playerPlay
+
+        ///////////////////////////////////MAIN FUNCTIONS/////////////////////////////////////////
+
+        // This function plays a single round of Rock, Paper, Scissors.
+        // It takes two parameters:
+        // player_selection(The typed choice of the human player), and
+        // computerSelection(An automated function for the program to choose a random PICK)
+        function playARound(playerSelection, computerSelection) {
+
+            // A key-value pair object that holds the responses to each possible game outcome
+            let response = {
+                draw: "It's a draw!",
+                rockWin: "You win! Rock beats Scissors!",
+                rockLose: "You lose, Paper beats Rock.",
+                paperWin: "You win! Paper beats Rock!",
+                paperLose: "You lose, Scissors beats Paper.",
+                scissorsWin: "You win! Scissors beats Paper!",
+                scissorsLose: "You lose, Rock beats Scissors."
+            }
+
+            // Check the computer's choice and compare it to the choice of the player.
+            switch (computerSelection) {
+                // Computer picks paper, now determine the winner based on the player's choice
+                case "paper":
+
+                    // The player picks paper, and no one wins
+                    if (playerSelection === "paper") {
+                        return response.draw;
+
+                        // The player picks rock, and the computer wins
+                    } else if (playerSelection === "rock") {
+                        winner = c;
+                        return response.rockLose;
+
+                        // The player picks scissors, and the player wins
+                    } else if (playerSelection === "scissors") {
+                        winner = p;
+                        return response.scissorsWin;
+
+                        // There is a problem that needs to be resolved
+                    } else {
+                        return console.log("Error");
+                    }
+                    break;
+
+                    // Computer picks rock, now determine the winner based on the player's choice
+                case "rock":
+
+                    // The player picks rock, and no one wins
+                    if (playerSelection === "rock") {
+                        return response.draw;
+
+                        // The player picks paper, and the player wins
+                    } else if (playerSelection === "paper") {
+                        winner = p;
+                        return response.paperWin;
+
+                        // The player picks scissors, and the computer wins
+                    } else if (playerSelection === "scissors") {
+                        winner = c;
+                        return response.scissorsLose;
+
+                        // There is a problem that needs to be resolved
+                    } else {
+                        return console.log("Error");
+                    }
+                    break;
+
+                    // Computer picks scissors, now determine the winner based on the player's choice
+                case "scissors":
+
+                    // The player picks scissors, so no one wins
+                    if (playerSelection === "scissors") {
+                        return response.draw;
+
+                        // The player picks paper, and the computer wins
+                    } else if (playerSelection === "paper") {
+                        winner = c;
+                        return response.paperLose;
+
+                        // The player picks rock, and the player wins
+                    } else if (playerSelection === "rock") {
+                        winner = p;
+                        return response.rockWin;
+
+                        // There is a problem that needs to be resolved
+                    } else {
+                        return console.log("Error");
+                    }
+                    break;
+
+                    // If nothing works, there is a problem that needs to be resolved
+                default:
+                    return console.log("Error. something went wrong playa...");
+            }
+        } // end playARound
+
+        // This function plays 5 rounds of Rock, Paper, Scissors, keeps score, and reports the winner at the end.
+        function game() {
+
+            let playerName = get_player_name(); // calls a function to get and store the player's name in a variable
+
+            let champion = ""; // represents the final game winner
+            let pCount = 0; // represents the player's win count
+            let cCount = 0; // represents the computer's win count
+
+            // Play 5 rounds of the game, then tally the wins and announce the champion
+            for (let gameCount = 0; gameCount < 5; gameCount++) {
+                let player_selection = playerPlay(); // calls a function to get and store the player's choice 
+                let computer_selection = computerPlay(); // calls a functon to get and store the computer 's choice 
+
+                // Initiates a round of play with the current choices from the player and computer 
+                playARound(player_selection, computer_selection);
+
+                // if the player's choice wins, increment the player 's win counter, show each participant's choices, and declare the player the round winner
+                if (winner === p) {
+                    pCount += 1;
+                    console.log(player_selection);
+                    console.log(computer_selection);
+                    console.log("The winner of that round is: " + playerName + "!");
+
+                    // if the computer's choice wins, increment the computer's win counter, show each participant's choices, and declare the computer the round winner 
+                } else if (winner === c) {
+                    cCount += 1;
+                    console.log(player_selection);
+                    console.log(computer_selection);
+                    console.log("The winner of that round was the computer.");
+
+                    // if both the player and computer pick the same choice, log no counter, show each participant's choice, and declare the game a draw 
+                } else if (winner === x) {
+                    console.log(player_selection);
+                    console.log(computer_selection);
+                    console.log(
+                        "There was no winner this round.It was a draw.");
+
+                    // if all else fails, log an error
+                } else {
+                    console.log("Error.");
+                }
+            }
+
+            // After the 5 rounds are played, tally the win counts, and declare a champion 
+            // if the player's win counter is larger than the computer's counter, declare the player the champion and display a message
+            if (pCount > cCount) {
+                champion = playerName;
+                console.log("\n\nAfter the action, the winner of the game is " +
+                    champion + "!");
+
+                // if the computer's win counter is larger than the player's counter, declare the computer the champion and display a message
+            } else if (cCount > pCount) {
+                champion = "Computer";
+                console.log("After the action, the winner of the game is " + champion + "!");
+
+                // if the game ends with a draw, declare no winner and display a draw game message
+            } else {
+                console.log(
+                    "After the action, there was no winner. The game ended in a DRAW!!!"
+                );
+            }
+        } // end game
+    </script>
+</body>
+
+</html>
