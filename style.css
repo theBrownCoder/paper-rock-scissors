@@ -8,17 +8,28 @@ html {
     background-color: royalblue;
 }
 
+#button-container {
+    height: 20%;
+}
+
+#results {
+    height: 400px;
+}
+
 #button-container,
 #results {
     min-width: 100%;
-    height: 20%;
 
+    border: 1px black solid;
     margin-top: 5ch;
     padding: 10px 0;
     text-align: center;
 }
 
-h1 {
+h1,
+#champ-label,
+#win-name,
+#win-message {
     font-size: 40px;
     font-weight: bolder;
 }
@@ -69,6 +80,7 @@ h2 {
     color: black;
 }
 
-#game-count {
-font-size: xx-large;
+#game-count,
+#results {
+    font-size: xx-large;
 }
