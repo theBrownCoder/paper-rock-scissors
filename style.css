@@ -19,8 +19,6 @@ html {
 #button-container,
 #results {
     min-width: 100%;
-
-    border: 1px black solid;
     margin-top: 5ch;
     padding: 10px 0;
     text-align: center;
